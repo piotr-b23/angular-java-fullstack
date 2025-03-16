@@ -7,3 +7,40 @@
 >
   Add task
 </button>
+@if(errorMsg){
+<div class="alert alert-warning alert-dismissible fade show mt-2" role="alert">
+  {{ errorMsg }}
+  <button
+    class="btn-close"
+    data-bs-dismiss="alert"
+    aria-label="Close"
+    (click)="clearErrorMsg()"
+  ></button>
+</div>
+}
+
+<div class="mt-5">
+  <h4>Tasks:</h4>
+  @if(todos.length > 0){
+  <ul class="list-group todos-list">
+    @for(todo of todos; track todo; let i = $index){
+    <li class="list-group-item">
+      <input
+        type="checkbox"
+        class="form-check-input my-1"
+        [checked]="todo.isCompleted"
+        (change)="changeTodoStatus(todo)"
+      />
+      <span
+        [ngClass]="{ 'text-decoration-line-through': todo.isCompleted }"
+        class="todo-item"
+      >
+        {{ i + 1 }}: {{ todo.name }}
+      </span>
+    </li>
+    }
+  </ul>
+  } @else {
+  <h5>No tasks currently</h5>
+  }
+</div>
