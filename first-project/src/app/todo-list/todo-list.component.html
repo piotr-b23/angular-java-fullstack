@@ -12,7 +12,7 @@
   @if(todos.length > 0){
   <ul class="list-group todos-list">
     @for(todo of todos; track todo; let i = $index){
-    <app-todo [index]="i" [todo]="todo"></app-todo>
+    <app-todo [index]="i" [todo]="todo" (delete)="deleteTodo(i)"></app-todo>
     }
   </ul>
   } @else {

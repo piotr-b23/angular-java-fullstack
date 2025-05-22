@@ -30,4 +30,8 @@ export class TodoListComponent {
   public clearErrorMsg() {
     this.errorMsg = '';
   }
+
+  deleteTodo(i: number) {
+    this.todos = this.todos.filter((_todo, index) => index !== i);
+  }
 }
