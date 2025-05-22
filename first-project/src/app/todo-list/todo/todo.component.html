@@ -12,5 +12,19 @@
   >
     {{ i + 1 }}: {{ task.name }}
   </span>
+
+  <button
+    type="button"
+    class="btn btn-danger btn-sm mx-2"
+    (click)="toggleModal()"
+  >
+    Delete
+  </button>
 </li>
-}
+
+@if(openModal){
+<app-modal
+  [title]="'Are you sure you want to delete task number: ' + (i + 1) + '?'"
+  (close)="toggleModal()"
+></app-modal>
+} }
