@@ -1,22 +1,10 @@
-<p class="mt-4">Add new task:</p>
-<input type="text" #name class="form-control" name="todo" />
-<button
-  type="button"
-  class="btn btn-primary mt-3"
-  (click)="addTodo(name.value)"
->
-  Add task
-</button>
+<app-add-todo-form (addTodo)="addTodo($event)"></app-add-todo-form>
+
 @if(errorMsg){
-<div class="alert alert-warning alert-dismissible fade show mt-2" role="alert">
-  {{ errorMsg }}
-  <button
-    class="btn-close"
-    data-bs-dismiss="alert"
-    aria-label="Close"
-    (click)="clearErrorMsg()"
-  ></button>
-</div>
+<app-alert
+  [errorMessage]="errorMsg"
+  (clearMessage)="clearErrorMsg()"
+></app-alert>
 }
 
 <div class="mt-5">
@@ -24,20 +12,7 @@
   @if(todos.length > 0){
   <ul class="list-group todos-list">
     @for(todo of todos; track todo; let i = $index){
-    <li class="list-group-item">
-      <input
-        type="checkbox"
-        class="form-check-input my-1"
-        [checked]="todo.isCompleted"
-        (change)="changeTodoStatus(todo)"
-      />
-      <span
-        [ngClass]="{ 'text-decoration-line-through': todo.isCompleted }"
-        class="todo-item"
-      >
-        {{ i + 1 }}: {{ todo.name }}
-      </span>
-    </li>
+    <app-todo [index]="i" [todo]="todo"></app-todo>
     }
   </ul>
   } @else {

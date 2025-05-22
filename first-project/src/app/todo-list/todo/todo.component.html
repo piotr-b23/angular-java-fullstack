@@ -1,0 +1,16 @@
+@let task = todo(); @let i = index(); @if(task && i !== undefined){
+<li class="list-group-item">
+  <input
+    type="checkbox"
+    class="form-check-input my-1"
+    [checked]="task.isCompleted"
+    (change)="changeTodoStatus(task)"
+  />
+  <span
+    [ngClass]="{ 'text-decoration-line-through': task.isCompleted }"
+    class="todo-item"
+  >
+    {{ i + 1 }}: {{ task.name }}
+  </span>
+</li>
+}
