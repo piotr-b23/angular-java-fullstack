@@ -10,7 +10,7 @@
     [ngClass]="{ 'text-decoration-line-through': task.isCompleted }"
     class="todo-item"
   >
-    {{ i + 1 }}: {{ task.name }}
+    {{ i + 1 }}: {{ task.name | firstLetterUppercase }}
   </span>
 
   <button
