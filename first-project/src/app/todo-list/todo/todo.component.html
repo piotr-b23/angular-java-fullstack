@@ -4,7 +4,7 @@
     type="checkbox"
     class="form-check-input my-1"
     [checked]="task.isCompleted"
-    (change)="changeTodoStatus(task)"
+    (change)="changeTodoStatus()"
   />
   <span
     [ngClass]="{ 'text-decoration-line-through': task.isCompleted }"

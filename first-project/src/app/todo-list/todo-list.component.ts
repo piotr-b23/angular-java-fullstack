@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Todo } from '../shared/interfaces/todo.interface';
 import { AlertComponent } from '../shared/components/alert/alert.component';
 import { AddTodoFormComponent } from './add-todo-form/add-todo-form.component';
@@ -10,9 +10,16 @@ import { TodoComponent } from './todo/todo.component';
   templateUrl: './todo-list.component.html',
   styleUrl: './todo-list.component.scss',
 })
-export class TodoListComponent {
+export class TodoListComponent implements OnInit {
   public todos: Todo[] = [];
   public errorMsg: string = '';
+
+  ngOnInit(): void {
+    const localStorageTodos = localStorage.getItem('todos');
+    if (localStorageTodos) {
+      this.todos = JSON.parse(localStorageTodos);
+    }
+  }
 
   public addTodo(todo: string): void {
     if (todo.length <= 3) {
@@ -24,7 +31,7 @@ export class TodoListComponent {
       isCompleted: false,
     };
     this.todos.push(newTodo);
-    console.log('Current todo list: ', this.todos);
+    localStorage.setItem('todos', JSON.stringify(this.todos));
   }
 
   public clearErrorMsg() {
@@ -33,5 +40,14 @@ export class TodoListComponent {
 
   deleteTodo(i: number) {
     this.todos = this.todos.filter((_todo, index) => index !== i);
+    localStorage.setItem('todos', JSON.stringify(this.todos));
+  }
+
+  changeTodoStatus(index: number) {
+    this.todos[index] = {
+      ...this.todos[index],
+      isCompleted: !this.todos[index].isCompleted,
+    };
+    localStorage.setItem('todos', JSON.stringify(this.todos));
   }
 }

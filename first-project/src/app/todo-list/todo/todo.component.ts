@@ -14,10 +14,11 @@ export class TodoComponent {
   todo = input<Todo>();
   index = input<number>();
   delete = output<void>();
+  changeStatus = output<void>();
   openModal = false;
 
-  changeTodoStatus(todo: Todo) {
-    todo.isCompleted = !todo.isCompleted;
+  changeTodoStatus() {
+    this.changeStatus.emit();
   }
 
   toggleModal() {
