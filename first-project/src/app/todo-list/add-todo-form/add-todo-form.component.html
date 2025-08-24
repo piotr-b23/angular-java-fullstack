@@ -1,9 +1,29 @@
-<p class="mt-4">Add new task:</p>
-<input type="text" #name class="form-control" name="todo" />
-<button
-  type="button"
-  class="btn btn-primary mt-3"
-  (click)="addNewTodo(name.value)"
->
-  Add task
-</button>
+<form #form="ngForm" (ngSubmit)="addNewTodo()">
+  <p class="mt-4">Add new task:</p>
+  <input
+    type="text"
+    required
+    minlength="4"
+    maxlength="50"
+    #name="ngModel"
+    [(ngModel)]="todoName"
+    class="form-control"
+    name="todo"
+    appFirstLetter
+  />
+  @if(name.errors?.['firstLetter'] && name.touched && name.invalid) {
+  <app-alert
+    [errorMessage]="'First sign must be a letter'"
+    [showCloseButton]="false"
+  ></app-alert>
+  }
+
+  <!-- <div ngModelGroup="person" #group="ngModelGroup">
+    <input type="text" [(ngModel)]="person.name" name="name" required="" />
+    <input type="number" [(ngModel)]="person.age" name="age" />
+  </div> -->
+
+  <button type="submit" class="btn btn-primary mt-3" [disabled]="!form.valid">
+    Add task
+  </button>
+</form>

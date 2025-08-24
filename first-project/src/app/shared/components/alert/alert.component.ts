@@ -8,6 +8,7 @@ import { Component, EventEmitter, input, output, Output } from '@angular/core';
 })
 export class AlertComponent {
   errorMessage = input<string>('');
+  showCloseButton = input<boolean>(true);
   clearMessage = output<void>();
 
   clearErrorMsg() {
